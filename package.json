@@ -1,0 +1,23 @@
+{
+  "name": "user-information-app",
+  "version": "1.0.0",
+  "description": "An app for user information",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gijslebesque/user-information-app.git"
+  },
+  "author": "Gijs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gijslebesque/user-information-app/issues"
+  },
+  "homepage": "https://github.com/gijslebesque/user-information-app#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "pug": "^2.0.0-beta6"
+  }
+}
