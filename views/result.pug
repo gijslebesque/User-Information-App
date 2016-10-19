@@ -3,5 +3,5 @@ html
 	body
 		h1 Result
 		p The result of your search
-			ul
-				li First name: #{user.firstName}, Last name: #{user.lastName}, email: #{user.email}
+			each thing in user
+				li.thing First name: #{thing.firstName}, Last name: #{thing.lastName}, email: #{thing.email}
