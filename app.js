@@ -10,7 +10,7 @@ app.set('views', __dirname + '/views')
 
 
 //Parsing implemented info by user. changes saved html data. 
-app.use(bodyParser.urlencoded({  //downloaded via npm instal body-parser --save
+app.use(bodyParser.urlencoded({  //downloaded via npm install body-parser --save
 	extended: true
 }))
 
