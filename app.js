@@ -15,8 +15,9 @@ app.use(bodyParser.urlencoded({  //downloaded via npm install body-parser --save
 }))
 
 
+
 //Users page
-app.get('/users', (request, response) =>{
+app.get('/', (request, response) =>{
 	fs.readFile(__dirname + '/users/users.json', (error, data) => {
 		if (error )throw error
 			let parsedData = JSON.parse(data)
@@ -30,19 +31,39 @@ app.get('/search', (request, response) => {
 	response.render('search')
 })
 
-app.post('/search', function(request, response){
+app.post('/searchData', (req, res) =>{
+	let result = []
+	fs.readFile(__dirname + '/users/users.json', (error, data) =>{
+		if(error) throw error
+		let parsedData = JSON.parse(data)
+		for (let i = parsedData.length - 1; i >= 0; i--) {
+			if (parsedData[i].firstName.indexOf(req.body.input) > -1){
+				result.push(parsedData[i].firstName)
+			}
+		}		
+	res.send(result)
+	})
+})
+
+
+
+
+
+app.get('/search', function(request, response){
 	let searchResult =[]
 	fs.readFile(__dirname + '/users/users.json', (error, data) => {
 		if (error) throw error
 			let parsedData = JSON.parse(data)
 		for (let i = parsedData.length - 1; i >= 0; i--) {
-			if(parsedData[i].firstName == request.body.query || parsedData[i].lastName == request.body.query) {
+			if(parsedData[i] == request.body.query || parsedData[i].lastName == request.body.query) {
 				searchResult.push(parsedData[i])
 			}
 		}
 		response.render('result', {user:searchResult})
 	})
 })
+
+
 
 
 //Add page
