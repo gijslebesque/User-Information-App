@@ -16,16 +16,17 @@ html
       script(src="http://code.jquery.com/ui/1.12.1/jquery-ui.js") 
       script(src="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
       script.
-        $("#query").keyup(function(e){
-          e.preventDefault()
-          let userInput = $(this).val()
-          $.post('/searchData', {input: userInput}, function(data, status){
-            $( "#query" ).autocomplete({
-              source: data
-              })
-            })
-        })
-
-
-
-
+        var timer = 0
+         $("#query").keyup(function(e){ 
+           let userInput = $(this).val()
+           let timeNow = Date.now()
+           if( timeNow - timer > 300) {
+            $.post('/searchData', {input: userInput}, function(data, status){
+              $( "#query" ).autocomplete({
+               source: data
+               })
+               timer = Date.now()
+             })
+             }
+         }) 
+        
