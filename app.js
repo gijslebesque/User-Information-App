@@ -32,6 +32,7 @@ app.get('/search', (request, response) => {
 })
 
 app.post('/searchData', (req, res) =>{
+	console.log(req.body)
 	let result = []
 	fs.readFile(__dirname + '/users/users.json', (error, data) =>{
 		if(error) throw error
@@ -46,24 +47,22 @@ app.post('/searchData', (req, res) =>{
 })
 
 
-
-
-
-app.get('/search', function(request, response){
+app.post('/search', function(request, response){
+	console.log(request.body.query)
 	let searchResult =[]
 	fs.readFile(__dirname + '/users/users.json', (error, data) => {
 		if (error) throw error
 			let parsedData = JSON.parse(data)
+		console.log(parsedData)
 		for (let i = parsedData.length - 1; i >= 0; i--) {
-			if(parsedData[i] == request.body.query || parsedData[i].lastName == request.body.query) {
+			if(parsedData[i].firstName == request.body.query || parsedData[i].lastName == request.body.query) {
 				searchResult.push(parsedData[i])
 			}
 		}
+		console.log(searchResult)
 		response.render('result', {user:searchResult})
 	})
 })
-
-
 
 
 //Add page

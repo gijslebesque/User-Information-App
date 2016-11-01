@@ -1,15 +1,16 @@
 html
   head
   body
-    form
+    form(autocomplete="off", method="post", action="/search")
       fieldset
         legend General
         p
           label Username:
-            input(id='query', type="text", name="query")
+            input(id='query', type="text", name="query" list="list")
+            datalist#list
       p.buttons
         input(type="submit", value="Save")
-      p This is your result:
+      //- p This is your result:
 
 
       script(src="https://code.jquery.com/jquery-3.1.1.js")
@@ -18,15 +19,22 @@ html
       script.
         var timer = 0
          $("#query").keyup(function(e){ 
+           e.preventDefault()
            let userInput = $(this).val()
            let timeNow = Date.now()
            if( timeNow - timer > 300) {
-            $.post('/searchData', {input: userInput}, function(data, status){
-              $( "#query" ).autocomplete({
-               source: data
-               })
-               timer = Date.now()
-             })
-             }
+            $.post('/searchData', {input: userInput}, function(data){
+              console.log(data)
+              //- $( '#query' ).autocomplete({
+              //-  source: data
+              //-  })
+              //-  timer = Date.now()
+              $('#list').empty()
+              for(var i = 0; i<data.length; i++) {
+                $('#list').append('<option>' + data[i] + '</option>')
+              }
+            })
+          }
          }) 
+
         
